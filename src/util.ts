@@ -22,6 +22,12 @@ const isTopLevelSectionPage = (section: ContentSectionType): boolean => {
 
 export {isTopLevelSectionPage};
 
+const isContentPage = (section: ContentSectionType): boolean => {
+    return section.content !== undefined || (section.children && section.children.some(childSection => childSection.content !== undefined));
+}
+
+export {isContentPage}
+
 const titleToPath = (title: string): string => {
     return title.toLowerCase().replace(/ /g, "-");
 };

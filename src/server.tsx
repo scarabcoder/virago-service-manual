@@ -13,6 +13,10 @@ const {extractCritical} = createEmotionServer(cache);
 
 import App from './App';
 import {CacheProvider} from '@emotion/react';
+import findPagesPath from "./util/findPagesPath";
+import manual from "./content/manual";
+import {isContentPage, isTopLevelSectionPage} from "./util";
+import getFullPageUrl from "./util/getFullPageUrl";
 
 let assets: any;
 const public_bucket_domain = process.env.PUBLIC_BUCKET_DOMAIN || '';
@@ -38,6 +42,22 @@ const jsScriptTagsFromAssets = (assets, entrypoint, extra = '') => {
 };
 
 export const renderApp = (req: express.Request, res: express.Response) => {
+    const path = req.path.split("/").filter(slug => slug !== "");
+    if (path.length > 0) {
+        const {pages, fullMatch} = findPagesPath(path, manual);
+        if (!fullMatch) {
+            res.status(404);
+        } else {
+            const lastPage = pages[pages.length - 1];
+            if (!isContentPage(lastPage)) {
+                console.log("Last page:", lastPage);
+                return {
+                    redirect: getFullPageUrl([...pages, lastPage.children[0]], process.env.APP_DOMAIN)
+                };
+            }
+        }
+    }
+
     const context: any = {};
     const sheets = new ServerStyleSheets();
     const markup = renderToString(

@@ -14,7 +14,7 @@ const maintenanceSchedule: ContentSectionType = {
             <Typography>This chapter includes all information necessary to perform recommended inspections and
                 adjustments. These preventive maintenance procedures, if followed, will ensure more reliable vehicle
                 operation and a longer service life.</Typography>
-            <Typography> The need for costly overhaul work will be greatly reduced. This
+            <Typography>The need for costly overhaul work will be greatly reduced. This
                 information applies to vehicles already in in service and to new vehicles that are being prepared for
                 sale. All service technicians should be familiar with this entire chapter.</Typography>
         </>)
@@ -26,10 +26,10 @@ const maintenanceSchedule: ContentSectionType = {
                 Especially important are the maintenance
                 services related to emissions control. These
                 controls not only function to ensure cleaner
-                air but are also vital to proper engine operation and maximum performance. </Typography>
+                air but are also vital to proper engine operation and maximum performance.</Typography>
             <Typography fontStyle={"italic"}>The following list is re-written to suit the digital format, the items
                 themselves are the same as the original. Initial break-in periods are excluded, refer to the original
-                manual for break-in maintenance items. </Typography>
+                manual for break-in maintenance items.</Typography>
         </>)
     }, {
         slug: "maintenance-items",

@@ -23,15 +23,15 @@ const useStyles = makeStyles(({palette, spacing}: Theme) => createStyles({
 
 const HeaderBanner = ({pagesPath}: HeaderBannerProps) => {
     const classes = useStyles();
-    const titledPages = pagesPath?.filter(page => page.title !== undefined);
+    const titledPages = pagesPath?.filter(page => page.title !== undefined) || [];
 
     return <div style={{height: "100%"}}>
         <Typography
             variant={"h6"}
             component={"h1"}
-            className={cx({[classes.headerBanner]: titledPages !== undefined})}
+            className={cx({[classes.headerBanner]: titledPages.length > 0})}
         >Virago Service Manual</Typography>
-        {titledPages?.length > 0 ? <span className={classes.breadcrumbs}>{titledPages[titledPages.length - 1].title}</span> : null}
+        {titledPages.length > 0 ? <span className={classes.breadcrumbs}>{titledPages[titledPages.length - 1].title}</span> : null}
     </div>;
 };
 

@@ -15,8 +15,9 @@ import findPagesPath from "./util/findPagesPath";
 import ContentSectionType from "./types/ContentSectionType";
 import theme from "./theme";
 import {Helmet} from "react-helmet";
-import { ThemeProvider } from '@material-ui/styles';
+import {ThemeProvider} from '@material-ui/styles';
 import getFullPageUrl from "./util/getFullPageUrl";
+import HomeContent from "./HomeContent";
 
 type AppProps = {
     appDomain: string
@@ -34,21 +35,23 @@ function App({appDomain}: AppProps) {
         window.scrollTo(0, 0);
     }, [pathname]);
 
-    const pagesPath = findPagesPath(paths, manual, []);
+    const {pages: pagesPath, fullMatch} = findPagesPath(paths, manual);
     const lastIndex = pagesPath.findIndex((page: ContentSectionType) => page.content !== undefined);
     const canonicalIndex = ((lastIndex === -1 ? null : lastIndex) || pagesPath.length) - 1;
-    const canonical = pagesPath[canonicalIndex];
+    const canonical = pagesPath.length > 0 ? pagesPath[canonicalIndex] : null;
     const pagesToCanonical = pagesPath.filter((page, index) => index <= canonicalIndex);
     console.log("Pages to canonical: ", pagesToCanonical);
-    console.log("canonicalIndex", canonicalIndex);
+    console.log("pages", pagesPath);
     console.log("Canonical", canonical);
     console.log("Host: ", appDomain);
     console.log("Full page", getFullPageUrl(pagesToCanonical, appDomain));
+    console.log("Full match:", fullMatch);
+    console.log("Paths:", paths);
 
     return (
         <>
             <Helmet>
-                <title>Virago Service Manual - {canonical.title!}</title>
+                <title>Virago Service Manual {canonical ? (" - " + canonical.title) : ""}</title>
                 <link rel={"canonical"} href={getFullPageUrl(pagesToCanonical, appDomain)}/>
             </Helmet>
             <CssBaseline/>
@@ -64,7 +67,10 @@ function App({appDomain}: AppProps) {
                     </AppBar>
                     <Toolbar/>
                     <Box p={1.5} boxSizing={"border-box"}>
-                        <Section sections={manual} path={paths}/>
+                        {pagesPath.length > 0 ?
+                            <Section sections={manual} path={paths}/>
+                            : <HomeContent/>
+                        }
                     </Box>
                     <AppDrawer
                         open={drawerOpen}
