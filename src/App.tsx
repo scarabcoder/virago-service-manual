@@ -49,6 +49,7 @@ function App({appDomain}: AppProps) {
         <>
             <Helmet>
                 <title>Virago Service Manual - {canonical.title!}</title>
+                <link rel={"canonical"} href={getFullPageUrl(pagesToCanonical, appDomain)}/>
             </Helmet>
             <CssBaseline/>
             <React.StrictMode>
