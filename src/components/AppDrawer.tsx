@@ -39,6 +39,7 @@ const AppDrawer = ({open, setDrawerOpen, pages, paths}: AppDrawerType) => {
         open={open}
         disableBackdropTransition={!iOS}
         disableDiscovery={iOS}
+        keepMounted={true}
     >
         <Box className={classes.root}>
             <Box p={2}>
