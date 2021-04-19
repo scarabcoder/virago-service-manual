@@ -15,6 +15,7 @@ import findPagesPath from "./util/findPagesPath";
 import ContentSectionType from "./types/ContentSectionType";
 import SectionType from "./types/SectionType";
 import theme from "./theme";
+import {Helmet} from "react-helmet";
 import { ThemeProvider } from '@material-ui/styles';
 
 function App() {
@@ -30,9 +31,13 @@ function App() {
     }, [pathname]);
 
     const pagesPath = findPagesPath(paths, manual, []);
+    const lastPage = pagesPath[pagesPath.length - 1];
 
     return (
         <>
+            <Helmet>
+                <title>Virago Service Manual - {lastPage!.title!}</title>
+            </Helmet>
             <CssBaseline/>
             <React.StrictMode>
                 <ThemeProvider theme={theme}>

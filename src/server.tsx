@@ -5,12 +5,14 @@ import {StaticRouter} from 'react-router-dom';
 import {ServerStyleSheets} from "@material-ui/core/styles";
 import cache from "./cache";
 import createEmotionServer from "@emotion/server/create-instance";
-import { render } from '@jaredpalmer/after';
+import {Helmet} from "react-helmet";
+import {render} from '@jaredpalmer/after';
+import {minify} from "html-minifier";
 
 const {extractCritical} = createEmotionServer(cache);
 
 import App from './App';
-import { CacheProvider } from '@emotion/react';
+import {CacheProvider} from '@emotion/react';
 
 let assets: any;
 const public_bucket_domain = process.env.PUBLIC_BUCKET_DOMAIN || '';
@@ -23,14 +25,14 @@ syncLoadAssets();
 
 const cssLinksFromAssets = (assets, entrypoint) => {
     return assets[entrypoint] ? assets[entrypoint].css ?
-        assets[entrypoint].css.map(asset=>
+        assets[entrypoint].css.map(asset =>
             `<link rel="stylesheet" href="${public_bucket_url}${asset}">`
         ).join('') : '' : '';
 };
 
 const jsScriptTagsFromAssets = (assets, entrypoint, extra = '') => {
     return assets[entrypoint] ? assets[entrypoint].js ?
-        assets[entrypoint].js.map(asset=>
+        assets[entrypoint].js.map(asset =>
             `<script src="${public_bucket_url}${asset}"${extra}></script>`
         ).join('') : '' : '';
 };
@@ -48,6 +50,8 @@ export const renderApp = (req: express.Request, res: express.Response) => {
         )
     );
 
+    const helmet = Helmet.renderStatic();
+
     if (context.url) {
         return {redirect: context.url};
     } else {
@@ -56,12 +60,14 @@ export const renderApp = (req: express.Request, res: express.Response) => {
 
         const html =
             // prettier-ignore
-            `<!doctype html>
+            minify(`<!doctype html>
     <html lang="">
     <head>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta charSet='utf-8' />
-        <title>Welcome to Razzle</title>
+            ${helmet.title.toString()}
+            ${helmet.meta.toString()}
+            ${helmet.link.toString()}
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <style id="jss-server-side">${css} ${styles.css}</style>
         ${cssLinksFromAssets(assets, 'client')}
@@ -70,7 +76,10 @@ export const renderApp = (req: express.Request, res: express.Response) => {
         <div id="root">${markup}</div>
         ${jsScriptTagsFromAssets(assets, 'client', ' defer crossorigin')}
     </body>
-  </html>`;
+  </html>`, {
+                collapseWhitespace: true,
+                minifyCSS: true
+            });
 
         return {html};
     }
