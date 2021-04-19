@@ -18,7 +18,11 @@ import {Helmet} from "react-helmet";
 import { ThemeProvider } from '@material-ui/styles';
 import getFullPageUrl from "./util/getFullPageUrl";
 
-function App() {
+type AppProps = {
+    appDomain: string
+}
+
+function App({appDomain}: AppProps) {
     const [drawerOpen, setDrawerOpen] = useState(false);
     const {pathname} = useLocation();
     const paths = pathname.split("/").filter(pathname => pathname !== "");
@@ -38,8 +42,8 @@ function App() {
     console.log("Pages to canonical: ", pagesToCanonical);
     console.log("canonicalIndex", canonicalIndex);
     console.log("Canonical", canonical);
-    console.log("Host: ", process.env.APP_DOMAIN);
-    console.log("Full page", getFullPageUrl(pagesToCanonical));
+    console.log("Host: ", appDomain);
+    console.log("Full page", getFullPageUrl(pagesToCanonical, appDomain));
 
     return (
         <>

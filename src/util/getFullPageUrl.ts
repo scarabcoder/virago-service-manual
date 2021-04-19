@@ -1,9 +1,9 @@
 import ContentSectionType from "../types/ContentSectionType";
 
-const getFullPageUrl = (pages: ContentSectionType[]) => {
+const getFullPageUrl = (pages: ContentSectionType[], appDomain: string) => {
     const scheme = process.env.NODE_ENV === "production" ? "https://" : "http://";
 
-    return scheme + process.env.APP_DOMAIN + "/" + (pages.map(page => page.slug).join("/"));
+    return scheme + appDomain + "/" + (pages.map(page => page.slug).join("/"));
 }
 
 export default getFullPageUrl;

@@ -44,7 +44,7 @@ export const renderApp = (req: express.Request, res: express.Response) => {
         sheets.collect(
             <CacheProvider value={cache}>
                 <StaticRouter context={context} location={req.url}>
-                    <App/>
+                    <App appDomain={process.env.APP_DOMAIN}/>
                 </StaticRouter>
             </CacheProvider>
         )
@@ -70,6 +70,9 @@ export const renderApp = (req: express.Request, res: express.Response) => {
             ${helmet.link.toString()}
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <style id="jss-server-side">${css} ${styles.css}</style>
+        <script>
+            window.appDomain = "${process.env.APP_DOMAIN}";
+        </script>
         ${cssLinksFromAssets(assets, 'client')}
     </head>
     <body>

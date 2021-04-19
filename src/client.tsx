@@ -7,7 +7,7 @@ import {Typography} from "@material-ui/core";
 
 hydrate(
   <BrowserRouter>
-    <App />
+    <App appDomain={(window as any).appDomain}/>
   </BrowserRouter>,
   document.getElementById('root')
 );
