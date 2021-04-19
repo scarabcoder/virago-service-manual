@@ -31,8 +31,8 @@ function App() {
     }, [pathname]);
 
     const pagesPath = findPagesPath(paths, manual, []);
-    const lastPage = pagesPath[pagesPath.length - 1];
-    const canonicalIndex = (pagesPath.findIndex((page: ContentSectionType) => page.content !== undefined) || pagesPath.length) - 1;
+    const lastIndex = pagesPath.findIndex((page: ContentSectionType) => page.content !== undefined);
+    const canonicalIndex = ((lastIndex === -1 ? null : lastIndex) || pagesPath.length) - 1;
     const canonical = pagesPath[canonicalIndex];
     const pagesToCanonical = pagesPath.filter((page, index) => index <= canonicalIndex);
     console.log("Pages to canonical: ", pagesToCanonical);
