@@ -6,7 +6,7 @@ import App from './App';
 test('renders learn react link', () => {
   const { getByText } = render(
     <MemoryRouter>
-      <App />
+      <App appDomain={"localhost"}/>
     </MemoryRouter>
   );
   const linkElement = getByText(/welcome to razzles/i);
