@@ -1,14 +1,5 @@
 'use strict';
 
 module.exports = {
-    modifyWebpackConfig(
-        {
-            env: {
-                target,
-                dev
-            },
-            webpackConfig
-        }) {
-        return webpackConfig;
-    }
+    modify: require("razzle-heroku"),
 }
