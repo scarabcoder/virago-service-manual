@@ -220,12 +220,12 @@ const engine: ContentSectionType = {
                     <Typography component={"li"}>
                         Place the motorcycle on the centerstand. Warm up the engine for several minutes.
                         <Notes>
-                            <Typography>Be sure the motorcycle is positioned straight up when checking the oil level; a
-                                slight tilt toward the side can produce false readings.</Typography>
-                            <Typography>If the oil sight glass appears to be black/solid, it's very likely
+                            Be sure the motorcycle is positioned straight up when checking the oil level; a
+                                slight tilt toward the side can produce false readings.<br/>
+                            If the oil sight glass appears to be black/solid, it's very likely
                                 that the level of oil is higher than the top of the sight glass. This can be confirmed
                                 by having an assistant lean the bike to the right to drop the oil level in the sight
-                                glass.</Typography>
+                                glass.
                         </Notes>
                     </Typography>
                     <Typography component={"li"}>
@@ -237,7 +237,7 @@ const engine: ContentSectionType = {
                     <Typography component={"li"}>
                         The oil level should be between the maximum and minimum marks. If the level is lower, add
                         sufficient oil to raise it to the proper level.
-                        <Notes title={"CAUTION"}>
+                        <Notes title={"CAUTION"} typographyComponent={"div"}>
                             After replacing the engine oil, check the oil pressure as described below:
                             <ol>
                                 <Typography component={"li"}>

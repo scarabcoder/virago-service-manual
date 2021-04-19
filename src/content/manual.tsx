@@ -1,10 +1,10 @@
 import React from "react";
 import motorcycleIdentification from "./general-information/motorcycleIdentification";
-import SectionType from "../types/SectionType";
 import maintenanceSchedule from "./virago-maintenance/maintenanceSchedule";
 import engine from "./virago-maintenance/engine";
+import ContentSectionType from "../types/ContentSectionType";
 
-const manual: SectionType[] = [
+const manual: ContentSectionType[] = [
     {
         title: "General Information",
         slug: "general-information",

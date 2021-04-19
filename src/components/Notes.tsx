@@ -6,14 +6,15 @@ import {Paper} from "@material-ui/core";
 type NotesProps = {
     title?: string,
     children: (() => React.ReactNode) | string | React.ReactNode,
-    component?: React.ElementType
+    component?: React.ElementType,
+    typographyComponent?: string
 }
 
-const Notes = ({title = "Note", children, component: ContentElement = Typography}: NotesProps) => {
+const Notes = ({title = "Note", children, component: ContentElement = Typography, typographyComponent}: NotesProps) => {
     return <>
         <Paper sx={{p: 1, mt: 1, mb: 1}}>
             <Divider textAlign="left">{title}</Divider>
-            <ContentElement>
+            <ContentElement component={typographyComponent}>
                 {children}
             </ContentElement>
             <Divider sx={{mb: 1}}/>

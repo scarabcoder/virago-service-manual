@@ -1,4 +1,3 @@
-import SectionType from "../types/SectionType";
 import ContentSectionType from "../types/ContentSectionType";
 import {isTopLevelSectionPage} from "../util";
 import ContentSection from "./ContentSection";
@@ -7,16 +6,16 @@ import { makeStyles } from '@material-ui/core/styles';
 import {createStyles, Theme} from "@material-ui/core";
 
 type SectionProps = {
-    sections: SectionType[],
+    sections: ContentSectionType[],
     path: string[]
 }
 
 const Section = ({sections, path}: SectionProps) => {
-    let childSection: SectionType | ContentSectionType;
+    let childSection: ContentSectionType;
     if (path.length === 0) {
         childSection = sections[0];
     } else {
-        childSection = sections.find((section: SectionType | ContentSectionType) => section.slug === path[0]) || sections[0];
+        childSection = sections.find((section: ContentSectionType) => section.slug === path[0]) || sections[0];
     }
 
     const newPath = [...path];
@@ -25,7 +24,7 @@ const Section = ({sections, path}: SectionProps) => {
     if (isTopLevelSectionPage(childSection)) {
         return <ContentSection section={childSection} depth={0}/>
     } else {
-        return <Section sections={childSection.children as SectionType[]} path={newPath}/>
+        return <Section sections={childSection.children as ContentSectionType[]} path={newPath}/>
     }
 
 };

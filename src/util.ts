@@ -1,6 +1,5 @@
 import PageType from "./types/PageType";
 import React from "react";
-import SectionType from "./types/SectionType";
 import ContentSectionType from "./types/ContentSectionType";
 
 const trailingSlashIt = (path: string) => {
@@ -16,7 +15,7 @@ const trailingSlashIt = (path: string) => {
 
 export {trailingSlashIt};
 
-const isTopLevelSectionPage = (section: SectionType | ContentSectionType): boolean => {
+const isTopLevelSectionPage = (section: ContentSectionType): boolean => {
     if (!section.children) return false;
     return section.children.some((child: ContentSectionType) => child.content !== undefined);
 }

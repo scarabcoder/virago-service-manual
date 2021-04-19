@@ -1,14 +1,13 @@
 import Typography from "@material-ui/core/Typography";
 import React from "react";
 import ContentSectionType from "../types/ContentSectionType";
-import SectionType from "../types/SectionType";
 import { makeStyles } from '@material-ui/core/styles';
 import { Theme } from '@material-ui/core/styles/createMuiTheme';
 import {createStyles} from "@material-ui/core";
 import cx from "classnames";
 
 type HeaderBannerProps = {
-    pagesPath?: (ContentSectionType | SectionType)[]
+    pagesPath?: ContentSectionType[]
 }
 
 const useStyles = makeStyles(({palette, spacing}: Theme) => createStyles({

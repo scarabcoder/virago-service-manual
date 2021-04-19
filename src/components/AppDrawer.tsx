@@ -5,13 +5,13 @@ import { makeStyles } from '@material-ui/core/styles';
 import {createStyles, List, Theme} from "@material-ui/core";
 import HeaderBanner from "./HeaderBanner";
 import Divider from "@material-ui/core/Divider";
-import SectionType from "../types/SectionType";
 import SectionNavigationItem from "./SectionNavigationItem";
+import ContentSectionType from "../types/ContentSectionType";
 
 type AppDrawerType = {
     open: boolean;
     setDrawerOpen: (open: boolean) => void;
-    pages: SectionType[],
+    pages: ContentSectionType[],
     paths: string[]
 }
 
@@ -48,7 +48,7 @@ const AppDrawer = ({open, setDrawerOpen, pages, paths}: AppDrawerType) => {
                 <Divider/>
             </Box>
             <List dense>
-                {pages.map((page: SectionType) => {
+                {pages.map((page: ContentSectionType) => {
                     return <SectionNavigationItem
                         section={page}
                         parentSlug={"/"}

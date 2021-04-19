@@ -13,10 +13,10 @@ import Section from "./components/Section";
 import Box from "@material-ui/core/Box";
 import findPagesPath from "./util/findPagesPath";
 import ContentSectionType from "./types/ContentSectionType";
-import SectionType from "./types/SectionType";
 import theme from "./theme";
 import {Helmet} from "react-helmet";
 import { ThemeProvider } from '@material-ui/styles';
+import getFullPageUrl from "./util/getFullPageUrl";
 
 function App() {
     const [drawerOpen, setDrawerOpen] = useState(false);
@@ -32,11 +32,19 @@ function App() {
 
     const pagesPath = findPagesPath(paths, manual, []);
     const lastPage = pagesPath[pagesPath.length - 1];
+    const canonicalIndex = (pagesPath.findIndex((page: ContentSectionType) => page.content !== undefined) || pagesPath.length) - 1;
+    const canonical = pagesPath[canonicalIndex];
+    const pagesToCanonical = pagesPath.filter((page, index) => index <= canonicalIndex);
+    console.log("Pages to canonical: ", pagesToCanonical);
+    console.log("canonicalIndex", canonicalIndex);
+    console.log("Canonical", canonical);
+    console.log("Host: ", process.env.HOST);
+    console.log("Full page", getFullPageUrl(pagesToCanonical));
 
     return (
         <>
             <Helmet>
-                <title>Virago Service Manual - {lastPage!.title!}</title>
+                <title>Virago Service Manual - {canonical.title!}</title>
             </Helmet>
             <CssBaseline/>
             <React.StrictMode>

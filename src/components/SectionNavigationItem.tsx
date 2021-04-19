@@ -1,4 +1,3 @@
-import SectionType from "../types/SectionType";
 import {isTopLevelSectionPage, trailingSlashIt} from "../util";
 import RouterLinkListItem from "./RouterLinkListItem";
 import React, {useEffect, useState} from "react";
@@ -12,7 +11,7 @@ import Collapse from "@material-ui/core/Collapse";
 import ContentSectionType from "../types/ContentSectionType";
 
 type SectionNavigationItemProps = {
-    section: SectionType | ContentSectionType,
+    section: ContentSectionType,
     parentSlug: string,
     onClick?: () => void,
     currentPath: string[],
@@ -66,7 +65,7 @@ const SectionNavigationItem = ({section, parentSlug, onClick, currentPath, depth
             />
         </ListItem>
         <Collapse in={expanded}>
-            {section.children?.map((childSection: ContentSectionType | SectionType) => (
+            {section.children?.map((childSection: ContentSectionType) => (
                 <SectionNavigationItem
                     key={childSection.slug}
                     section={childSection}

@@ -1,6 +1,4 @@
 import ContentSectionType from "../types/ContentSectionType";
-import SectionType from "../types/SectionType";
-
 type PageGenericType = {
     slug: string,
     children?: PageGenericType[]
@@ -8,13 +6,13 @@ type PageGenericType = {
 
 const findPagesPath = (
     pathname: string[],
-    pages: ContentSectionType[] | SectionType[],
-    pagesPath: ContentSectionType[] | SectionType[]
-): (ContentSectionType | SectionType)[] => {
+    pages: ContentSectionType[],
+    pagesPath: ContentSectionType[]
+): (ContentSectionType)[] => {
 
     const pagesCast = pages as PageGenericType[];
 
-    const foundPage = pagesCast.find((page: ContentSectionType | SectionType) => page.slug === pathname[0]) as unknown as ContentSectionType | SectionType;
+    const foundPage = pagesCast.find((page: ContentSectionType) => page.slug === pathname[0]) as unknown as ContentSectionType;
 
     if (!foundPage) {
         return [];
