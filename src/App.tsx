@@ -38,7 +38,7 @@ function App() {
     console.log("Pages to canonical: ", pagesToCanonical);
     console.log("canonicalIndex", canonicalIndex);
     console.log("Canonical", canonical);
-    console.log("Host: ", process.env.HOST);
+    console.log("Host: ", process.env.APP_DOMAIN);
     console.log("Full page", getFullPageUrl(pagesToCanonical));
 
     return (
