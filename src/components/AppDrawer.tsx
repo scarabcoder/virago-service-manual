@@ -1,12 +1,13 @@
 import Box from "@material-ui/core/Box";
 import SwipeableDrawer from "@material-ui/core/SwipeableDrawer";
 import React, {useEffect, useState} from "react";
-import { makeStyles } from '@material-ui/core/styles';
+import {makeStyles, useTheme} from '@material-ui/core/styles';
 import {createStyles, List, Theme} from "@material-ui/core";
 import HeaderBanner from "./HeaderBanner";
 import Divider from "@material-ui/core/Divider";
 import SectionNavigationItem from "./SectionNavigationItem";
 import ContentSectionType from "../types/ContentSectionType";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
 
 type AppDrawerType = {
     open: boolean;
@@ -17,7 +18,12 @@ type AppDrawerType = {
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
     root: {
-        width: "85vw"
+        [theme.breakpoints.down("md")]: {
+            width: "85vw"
+        },
+        [theme.breakpoints.up("md")]: {
+            width: "400px"
+        }
     },
     chapterListItem: {
         "& > .MuiTypography-root": {
@@ -28,6 +34,10 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 
 const AppDrawer = ({open, setDrawerOpen, pages, paths}: AppDrawerType) => {
     const classes = useStyles();
+
+    const theme = useTheme();
+    const matches = useMediaQuery(theme.breakpoints.up('sm'));
+    console.log("matches up sm:", matches);
 
     const iOS = typeof navigator !== 'undefined' && /iPad|iPhone|iPod/.test(navigator.userAgent);
 

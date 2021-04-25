@@ -6,17 +6,19 @@ import {ServerStyleSheets} from "@material-ui/core/styles";
 import cache from "./cache";
 import createEmotionServer from "@emotion/server/create-instance";
 import {Helmet} from "react-helmet";
-import {render} from '@jaredpalmer/after';
 import {minify} from "html-minifier";
+import device from "device";
+import mediaQuery from "css-mediaquery";
 
 const {extractCritical} = createEmotionServer(cache);
-
 import App from './App';
 import {CacheProvider} from '@emotion/react';
 import findPagesPath from "./util/findPagesPath";
 import manual from "./content/manual";
 import {isContentPage, isTopLevelSectionPage} from "./util";
 import getFullPageUrl from "./util/getFullPageUrl";
+import {ThemeProvider} from '@material-ui/styles';
+import deviceTypeToWidth from "./util/deviceTypeToWidth";
 
 let assets: any;
 const public_bucket_domain = process.env.PUBLIC_BUCKET_DOMAIN || '';
@@ -41,7 +43,10 @@ const jsScriptTagsFromAssets = (assets, entrypoint, extra = '') => {
         ).join('') : '' : '';
 };
 
+const defaultUserAgent = "Mozilla/5.0 (iPhone; CPU iPhone OS 14_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/87.0.4280.163 Mobile/15E148 Safari/604.1";
+
 export const renderApp = (req: express.Request, res: express.Response) => {
+    const userDevice = device(req.header("User-Agent") || defaultUserAgent, {parseUserAgent: true});
     const path = req.path.split("/").filter(slug => slug !== "");
     if (path.length > 0) {
         const {pages, fullMatch} = findPagesPath(path, manual);
@@ -50,7 +55,6 @@ export const renderApp = (req: express.Request, res: express.Response) => {
         } else {
             const lastPage = pages[pages.length - 1];
             if (!isContentPage(lastPage)) {
-                console.log("Last page:", lastPage);
                 return {
                     redirect: getFullPageUrl([...pages, lastPage.children[0]], process.env.APP_DOMAIN)
                 };
