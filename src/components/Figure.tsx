@@ -12,15 +12,21 @@ type FigureProps = {
 const useStyles = makeStyles((theme: Theme) => createStyles({
     root: {
         width: "100%",
-        maxWidth: "500px"
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "flex-start",
+        "& > img": {
+            width: "100%",
+            maxWidth: "500px"
+        }
     }
 }));
 
 const Figure = ({imageSource, text}: FigureProps) => {
     const classes = useStyles();
 
-    return <Box mt={1} mb={1} sx={{display: "flex", justifyContent: "center"}}>
-        <img src={"/image/" + imageSource} alt={text} className={classes.root}/>
+    return <Box mt={1} mb={1} className={classes.root}>
+        <img src={"/image/" + imageSource} alt={text}/>
         <Typography variant={"subtitle2"}>{text}</Typography>
     </Box>
 }
