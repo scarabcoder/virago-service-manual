@@ -1,14 +1,14 @@
 import React from 'react';
-import { render } from '@testing-library/react';
-import { MemoryRouter } from 'react-router-dom';
+import {render} from '@testing-library/react';
+import {MemoryRouter} from 'react-router-dom';
 import App from './App';
 
 test('renders learn react link', () => {
-  const { getByText } = render(
-    <MemoryRouter>
-      <App appDomain={"localhost"}/>
-    </MemoryRouter>
-  );
-  const linkElement = getByText(/welcome to razzles/i);
-  expect(linkElement).toBeInTheDocument();
+    const {getByText} = render(
+        <MemoryRouter>
+            <App appDomain={"localhost"} analyticsTrackingId={""}/>
+        </MemoryRouter>
+    );
+    const linkElement = getByText(/welcome to razzles/i);
+    expect(linkElement).toBeInTheDocument();
 });

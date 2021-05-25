@@ -68,13 +68,14 @@ export const renderApp = (req: express.Request, res: express.Response) => {
         sheets.collect(
             <CacheProvider value={cache}>
                 <StaticRouter context={context} location={req.url}>
-                    <App appDomain={process.env.APP_DOMAIN}/>
+                    <App appDomain={process.env.APP_DOMAIN} analyticsTrackingId={process.env.GOOGLE_ANALYTICS_ID}/>
                 </StaticRouter>
             </CacheProvider>
         )
     );
 
     const helmet = Helmet.renderStatic();
+    console.log(process.env.GOOGLE_ANALYTICS_ID);
 
     if (context.url) {
         return {redirect: context.url};
@@ -96,6 +97,7 @@ export const renderApp = (req: express.Request, res: express.Response) => {
         <style id="jss-server-side">${css} ${styles.css}</style>
         <script>
             window.appDomain = "${process.env.APP_DOMAIN}";
+            window.gaTrackingId = "${process.env.GOOGLE_ANALYTICS_ID}";
         </script>
         ${cssLinksFromAssets(assets, 'client')}
     </head>

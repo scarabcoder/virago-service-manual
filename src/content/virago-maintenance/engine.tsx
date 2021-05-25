@@ -27,7 +27,7 @@ const engine: ContentSectionType = {
                     <Typography component={"li"}>Remove the intake and exhaust valve covers.</Typography>
                     <Typography component={"li"}>
                         Remove the generator cover and crankshaft end cover.
-                        <Figure imageSource={"engine/valve-clearance-3.png"}/>
+                        <Figure imageSource={"engine/valve-clearance-3.webp"}/>
                     </Typography>
                     <Typography component={"li"}>Align the "T" mark (for the rear cylinder) on the flywheel with the
                         stationary pointer on the crankcase cover. The pointer can be viewed through the timing window

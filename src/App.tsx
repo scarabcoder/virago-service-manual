@@ -18,9 +18,11 @@ import {Helmet} from "react-helmet";
 import {ThemeProvider} from '@material-ui/styles';
 import getFullPageUrl from "./util/getFullPageUrl";
 import HomeContent from "./HomeContent";
+import ReactGA from "react-ga";
 
 type AppProps = {
-    appDomain: string
+    appDomain: string,
+    analyticsTrackingId: string
 }
 
 const useStyles = makeStyles(theme => ({
@@ -30,7 +32,7 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-function App({appDomain}: AppProps) {
+function App({appDomain, analyticsTrackingId}: AppProps) {
     const [drawerOpen, setDrawerOpen] = useState(false);
     const {pathname} = useLocation();
     const paths = pathname.split("/").filter(pathname => pathname !== "");
@@ -40,7 +42,13 @@ function App({appDomain}: AppProps) {
     }, [pathname]);
 
     useEffect(() => {
+        console.log(analyticsTrackingId);
+        ReactGA.initialize(analyticsTrackingId);
+    }, []);
+
+    useEffect(() => {
         window.scrollTo(0, 0);
+        ReactGA.pageview(pathname);
     }, [pathname]);
 
     const {pages: pagesPath, fullMatch} = findPagesPath(paths, manual);
